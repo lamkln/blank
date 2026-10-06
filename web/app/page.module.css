@@ -1,0 +1,102 @@
+.main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 96px;
+  min-width: 0;
+}
+
+.hero {
+  padding: 48px 0 64px;
+}
+
+.chip {
+  display: inline-block;
+  margin: 0 0 20px;
+  padding: 4px 10px;
+  font-size: 13px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  color: var(--body);
+}
+
+.title {
+  margin: 0 0 16px;
+  font-size: clamp(28px, 5vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.lede {
+  margin: 0 0 28px;
+  font-size: 16px;
+  color: var(--body);
+  max-width: 62ch;
+}
+
+.section {
+  padding: 48px 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.section h2 {
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.bodyText {
+  margin: 0 0 20px;
+  color: var(--body);
+  max-width: 62ch;
+}
+
+.asciiList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.asciiList li {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: var(--body);
+}
+
+.asciiList span {
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+.installBlock {
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  background: var(--canvas);
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 100%;
+}
+
+.installBlock code {
+  display: block;
+  white-space: pre;
+  word-break: normal;
+}
+
+.anchorTarget {
+  scroll-margin-top: 24px;
+}
+
+@media (max-width: 520px) {
+  .main {
+    padding: 0 16px 64px;
+  }
+
+  .hero {
+    padding: 32px 0 48px;
+  }
+}

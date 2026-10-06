@@ -1,0 +1,42 @@
+.section {
+  padding: 48px 0 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.anchorTarget {
+  scroll-margin-top: 24px;
+}
+
+.section h2 {
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.faq {
+  margin: 0;
+}
+
+.item {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.question {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.answer {
+  margin: 0;
+  color: var(--body);
+  line-height: 1.55;
+}

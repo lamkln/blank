@@ -1,0 +1,28 @@
+.footer {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  border-top: 1px solid var(--hairline);
+  font-size: 13px;
+  color: var(--mute);
+}
+
+.footer p {
+  margin: 0;
+}
+
+.link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--body);
+}
+
+.link:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 520px) {
+  .footer {
+    padding: 24px 16px 40px;
+  }
+}

@@ -1,0 +1,45 @@
+:root {
+  --canvas: #fdfcfc;
+  --ink: #201d1d;
+  --body: #646262;
+  --mute: #8a8787;
+  --hairline: rgba(100, 98, 98, 0.2);
+  --surface-dark: #201d1d;
+  --radius: 4px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-mono), ui-monospace, "Cascadia Code", "SF Mono", Menlo,
+    Consolas, monospace;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(32, 29, 29, 0.12);
+}
