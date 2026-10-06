@@ -179,9 +179,8 @@ export function useAgent() {
 
         while (iterations < 12) {
           iterations++;
-          const requestMessages = [...apiMessages];
           if (toolFeedback) {
-            requestMessages.push({
+            apiMessages.push({
               id: crypto.randomUUID(),
               role: "user",
               content: toolFeedback,
@@ -192,7 +191,7 @@ export function useAgent() {
 
           const response = await adapter.sendMessage(
             provider,
-            requestMessages,
+            apiMessages,
             SYSTEM_PROMPT,
             (chunk) => {
               const prev =
@@ -201,6 +200,24 @@ export function useAgent() {
               updateMessage(assistantId, { content: prev + chunk });
             },
           );
+
+          const assistantContent =
+            useAppStore.getState().messages.find((m) => m.id === assistantId)
+              ?.content ??
+            response.content;
+          if (assistantContent) {
+            const last = apiMessages[apiMessages.length - 1];
+            if (last?.role === "assistant" && last.id === assistantId) {
+              last.content = assistantContent;
+            } else {
+              apiMessages.push({
+                id: assistantId,
+                role: "assistant",
+                content: assistantContent,
+                timestamp: Date.now(),
+              });
+            }
+          }
 
           if (!response.content && response.toolCalls.length === 0) {
             updateMessage(assistantId, {
