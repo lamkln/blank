@@ -1,0 +1,79 @@
+.wrap {
+  max-width: 100%;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  overflow: hidden;
+  width: fit-content;
+}
+
+.tabBtn {
+  font: inherit;
+  font-size: 13px;
+  padding: 8px 16px;
+  border: none;
+  background: var(--canvas);
+  color: var(--body);
+  cursor: pointer;
+  border-right: 1px solid var(--hairline);
+}
+
+.tabBtn:last-child {
+  border-right: none;
+}
+
+.tabBtnActive {
+  background: var(--ink);
+  color: var(--canvas);
+}
+
+.panel {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+}
+
+.label {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--body);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--hairline);
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.btnPrimary {
+  background: var(--ink);
+  color: var(--canvas);
+  border-color: var(--ink);
+}
+
+.note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--mute);
+  max-width: 52ch;
+}
+
+.note code {
+  font-size: 12px;
+}

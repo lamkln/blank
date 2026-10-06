@@ -42,8 +42,8 @@ export const tauriApi = {
     invoke<string>("scaffold_nextjs", { parentPath, folderName }),
   scaffoldStatic: (parentPath: string, folderName: string) =>
     invoke<string>("scaffold_static", { parentPath, folderName }),
-  encryptKey: (plaintext: string) =>
-    invoke<string>("encrypt_secret", { plaintext }),
+  encryptKey: (keyId: string, plaintext: string) =>
+    invoke<string>("encrypt_secret", { keyId, plaintext }),
   decryptKey: (ciphertext: string) =>
     invoke<string>("decrypt_secret", { ciphertext }),
 };

@@ -1,0 +1,36 @@
+.section {
+  padding: 48px 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.section h2 {
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.faq {
+  margin: 0;
+}
+
+.item {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.item dt {
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.item dd {
+  margin: 0;
+  color: var(--body);
+}

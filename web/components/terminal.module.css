@@ -1,0 +1,29 @@
+.terminal {
+  margin-top: 40px;
+  background: var(--surface-dark);
+  color: #e8e6e6;
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #a8a4a4;
+  font-size: 11px;
+}
+
+.hint {
+  opacity: 0.7;
+}
+
+.content {
+  margin: 0;
+  padding: 16px 14px 20px;
+  white-space: pre-wrap;
+}

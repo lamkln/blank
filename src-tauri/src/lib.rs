@@ -17,8 +17,8 @@ fn save_settings(settings: StoredSettings) -> Result<(), String> {
 }
 
 #[tauri::command]
-fn encrypt_secret(plaintext: String) -> Result<String, String> {
-    crypto::encrypt_secret(&plaintext)
+fn encrypt_secret(key_id: String, plaintext: String) -> Result<String, String> {
+    crypto::encrypt_secret(&key_id, &plaintext)
 }
 
 #[tauri::command]

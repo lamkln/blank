@@ -51,7 +51,7 @@ export function useSettingsPersistence() {
         type: p.type,
         name: p.name,
         apiKeyEncrypted: p.apiKey
-          ? await tauriApi.encryptKey(p.apiKey)
+          ? await tauriApi.encryptKey(p.id, p.apiKey)
           : "",
         baseUrl: p.baseUrl,
         model: p.model,
