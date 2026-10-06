@@ -1,246 +1,126 @@
-# Blank IDE
+# Blank
 
-> A Windows desktop AI-only IDE with chat on the left, live preview on the right, hidden file drawer, approval-based file/command execution, and multi-provider AI support.
+**Blank** is a Windows desktop AI-only IDE: one window with chat on the left and live preview on the right. You describe what you want; the agent proposes file edits and terminal commands. Every change waits for **Approve** or **Undo**. Files stay hidden unless you open the **Show files** drawer.
 
-![Blank IDE Screenshot](https://via.placeholder.com/1200x700/1e1e2e/ffffff?text=Blank+IDE)
+Built with **Tauri 2**, **React**, **TypeScript**, and **Tailwind CSS**.
 
-## Features
-
-### 🤖 Multi-Provider AI Support
-- **OpenAI** (GPT-4, GPT-3.5, etc.)
-- **Anthropic** (Claude 3 Opus/Sonnet/Haiku)
-- **Google Gemini** (1.5 Pro/Flash)
-- **Groq** (Llama 3, Mixtral, Gemma)
-- **OpenRouter** (Access 100+ models)
-- **Custom** (Any OpenAI-compatible API)
-
-### 💬 Chat-Centric Workflow
-- Natural language conversation with AI agent
-- Streaming responses with tool use visualization
-- Context-aware code generation and editing
-
-### ✅ Approval-Based Execution
-- Every file edit and command requires explicit approval
-- Side-by-side diff preview for file changes
-- Command preview with working directory context
-- One-click approve/reject with undo support
-
-### 📁 Hidden File Drawer
-- Collapsible file explorer (toggle with `Ctrl+B`)
-- Filter files by name
-- Click to open in editor context
-- Real-time file system watching
-
-### 🔴 Live Preview
-- Embedded preview of your running dev server (port 3000)
-- Automatic fallback to static file serving
-- Refresh, open in browser, and copy URL actions
-
-### 🔐 Secure Configuration
-- API keys encrypted at rest using Windows DPAPI
-- Provider configurations stored locally
-- No telemetry or data collection
-
-### 🎨 Developer Experience
-- VS Code-inspired dark theme
-- Keyboard shortcuts for common actions
-- Responsive split-pane layout
-- Smooth animations and transitions
-## Quick Start
+## Quick start (Windows)
 
 ### Prerequisites
-- **Node.js** 18+ and npm
-- **Rust** 1.70+ (install via [rustup.rs](https://rustup.rs/))
-- **Windows 10/11** (primary target)
 
-### Development
+- [Node.js](https://nodejs.org/) 18+
+- [Rust](https://rustup.rs/) (for the Tauri shell)
+- [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) (usually already installed on Windows 11)
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/blank-ide.git
+### Run in development
+
+```powershell
+git clone <this-repo>
 cd blank-ide
-
-# Install frontend dependencies
 npm install
-
-# Start development server (frontend + Tauri)
 npm run tauri:dev
 ```
 
-### Production Build
+On first launch:
 
-```bash
-# Build frontend and Tauri app
+1. Choose a **project folder** (or scaffold Next.js / static site in Settings → Project).
+2. Open **Settings** → add a provider, paste your **API key**, pick a **model**, and set it as active.
+3. Type a task in chat (for example: `scaffold a landing page and run the dev server`).
+
+### Production build
+
+```powershell
 npm run tauri:build
-
-# Output: src-tauri/target/release/blank-ide.exe
 ```
 
-### Frontend Only (No Tauri)
+The Windows executable is under `src-tauri\target\release\`. The installer/bundle output depends on your Tauri bundle settings (MSI/NSIS/exe).
 
-```bash
-# Start Vite dev server
-npm run dev
-# Open http://localhost:1420 (Tauri APIs won't work)
-```
+## Layout
 
-## Project Structure
+| Area | Purpose |
+|------|---------|
+| **Chat (left)** | Tasks, agent replies, one-line plans, approval cards |
+| **Preview (right)** | Embedded iframe (default `http://localhost:3000`) |
+| **Files drawer** | Optional file list (`Ctrl+B`) — files are not shown by default |
+| **Settings** | Providers, project folder, preview URL (`Ctrl+,`) |
 
-```
-blank-ide/
-├── src/                          # React frontend
-│   ├── components/               # UI components
-│   │   ├── ApprovalCard.tsx      # Action approval with diff view
-│   │   ├── ChatPanel.tsx         # Chat interface
-│   │   ├── FileTree.tsx          # File explorer
-│   │   ├── PreviewPanel.tsx      # Live preview iframe
-│   │   ├── ProviderPicker.tsx    # Provider selection
-│   │   ├── SettingsPanel.tsx     # Settings modal
-│   │   └── ...
-│   ├── hooks/                    # React hooks
-│   │   ├── useAgent.ts           # Agent loop logic
-│   │   ├── useProject.ts         # Project management
-│   │   └── useProviders.ts       # Provider state
-│   ├── providers/                # AI provider implementations
-│   │   ├── openai.ts
-│   │   ├── anthropic.ts
-│   │   ├── gemini.ts
-│   │   ├── groq.ts
-│   │   ├── openrouter.ts
-│   │   └── custom.ts
-│   ├── utils/                    # Utilities
-│   │   ├── diff.ts               # Diff parsing
-│   │   ├── encryption.ts         # DPAPI encryption
-│   │   └── project.ts            # Project Tauri commands
-│   ├── types.ts                  # TypeScript types
-│   ├── App.tsx                   # Main app component
-│   └── main.tsx                  # Entry point
-├── src-tauri/                    # Rust backend
-│   ├── src/
-│   │   ├── commands.rs           # Tauri command handlers
-│   │   ├── crypto.rs             # Encryption (DPAPI)
-│   │   ├── fs.rs                 # File system operations
-│   │   ├── project.rs            # Project scaffolding
-│   │   ├── terminal.rs           # PTY terminal management
-│   │   └── main.rs               # Tauri app entry
-│   ├── Cargo.toml
-│   └── tauri.conf.json
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-└── tailwind.config.js
-```
+## AI providers
 
-## Architecture
+All providers share the same chat + tool interface:
 
-### Frontend (React + TypeScript)
-- **State Management**: Zustand store + React hooks
-- **Styling**: Tailwind CSS with custom theme
-- **Build**: Vite + TypeScript (strict mode)
-- **IPC**: `@tauri-apps/api` for Rust communication
+| Provider | Notes |
+|----------|--------|
+| OpenAI | Default OpenAI API base URL |
+| Anthropic | Claude models |
+| Google Gemini | Gemini API |
+| Groq | OpenAI-compatible Groq endpoint |
+| OpenRouter | OpenAI-compatible router |
+| Custom | Your own OpenAI-compatible base URL (local LLMs, proxies, etc.) |
 
-### Backend (Rust + Tauri 2)
-- **Commands**: File ops, shell execution, project scaffolding, encryption
-- **Security**: Windows DPAPI for credential storage
-- **Process**: `portable-pty` for terminal emulation
-- **Plugins**: dialog, fs, process, shell, opener, clipboard
+The active **provider and model** appear in the chat header. Changing provider does **not** delete your project.
 
-### AI Provider Interface
-```typescript
-interface AIProvider {
-  id: ProviderId;
-  name: string;
-  models: string[];
-  defaultModel: string;
-  sendMessage(messages, tools, streamCallback): Promise<AIResponse>;
-}
-```
+**API keys** are sent only to the provider you configure. They are **not** hardcoded in the repo.
 
-## Configuration
+## Where settings and keys are stored (Windows)
 
-### Adding a Provider
-1. Open Settings (`Ctrl+,` or gear icon)
-2. Click "Add Provider"
-3. Select type (OpenAI, Anthropic, etc.)
-4. Enter API key and optional base URL
-5. Save and set as active
+| Data | Location |
+|------|----------|
+| App settings (providers, active model, project path, preview URL) | `%APPDATA%\blank-ide\settings.json` |
+| API keys inside settings | Encrypted with **Windows DPAPI** (`CryptProtectData`) before being written to disk |
 
-### Project Setup
-1. Open Settings → Project tab
-2. Click "Choose Folder" to select project directory
-3. Or click "Scaffold Next.js" / "Scaffold Static" for new projects
-4. Start dev server from Project tab or let agent do it
+On non-Windows dev builds, encryption falls back to a reversible base64 wrapper (`plain:` prefix) so Linux/macOS development still works — production use is intended on **Windows**.
 
-## Keyboard Shortcuts
+## Agent loop
+
+1. Read your message  
+2. Emit a **one-line plan** (`plan` tool)  
+3. Propose **file edits** as diffs (`write_file`) → wait for Approve  
+4. Propose **commands** (`run_command`) → wait for Approve → output appears **only on the approval card**  
+5. Refresh preview when a dev/start/serve command succeeds  
+6. On failure, surface errors and propose fixes (approve again)  
+7. **Stop** when you say stop or the preview is up (`stop` tool)
+
+## Keyboard shortcuts
 
 | Shortcut | Action |
 |----------|--------|
 | `Ctrl+B` | Toggle file drawer |
-| `Ctrl+,` | Open settings |
+| `Ctrl+,` | Settings |
 | `Ctrl+L` | Clear chat |
 | `Enter` | Send message |
-| `Shift+Enter` | New line in input |
+| `Shift+Enter` | New line in chat input |
 
-## Security Model
+## MVP scope
 
-- **API Keys**: Encrypted with Windows DPAPI, never in plaintext
-- **File Access**: Scoped to `$APPDATA/blank-ide/**` and `$PROJECT/**`
-- **Shell Commands**: Allow-listed (cmd, powershell, npm, npx, node)
-- **No Network**: Frontend only talks to configured AI providers
+- New project: blank **Next.js** (via `create-next-app`) or **static HTML/CSS/JS** scaffold  
+- Chat, preview, approve/undo for files and commands  
+- Provider settings for all listed backends  
+- Allowed shell commands: `npm`, `npx`, `node`, `pnpm`, `yarn`, `cmd`, `powershell`, `pwsh`
 
-## Scripts
+## Out of scope
 
-```bash
-# Frontend
-npm run dev          # Vite dev server
-npm run build        # TypeScript + Vite production build
-npm run preview      # Preview production build
-npm run lint         # ESLint
+Plugins, themes, git UI, accounts, cloud sync, billing.
 
-# Tauri
-npm run tauri:dev    # Development with hot reload
-npm run tauri:build  # Production build (.exe/.msi)
+## Project structure
+
+```
+blank-ide/
+├── src/                 # React UI, providers, agent hook
+├── src-tauri/           # Rust: FS, shell, DPAPI, scaffolds
+├── package.json
+└── README.md
 ```
 
 ## Troubleshooting
 
-### "cargo not found"
-Install Rust: `irm https://win.rustup.rs | iex`
+**`cargo` / Rust not found** — Install from [rustup.rs](https://rustup.rs/) and restart your terminal.
 
-### "WebView2 not found"
-Install [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
+**WebView2 missing** — Install the [WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/).
 
-### Dev server not connecting
-- Ensure port 3000 is free
-- Check project has valid `package.json` with dev script
-- View terminal output in Project tab
+**Preview blank** — Confirm the dev server is running and the preview URL in Settings matches (default port 3000).
 
-### Provider errors
-- Verify API key is correct
-- Check base URL for custom providers
-- Test connection in Settings → Providers
+**Provider errors** — Check the API key, model id, and base URL (custom/OpenRouter).
 
 ## License
 
-Apache License 2.0 - see [LICENSE](LICENSE) for details.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run `npm run build` and `npm run tauri:build` to verify
-5. Submit a PR
-
-## Roadmap
-
-- [ ] Multi-file diff view
-- [ ] Terminal panel integration
-- [ ] Git integration (status, diff, commit)
-- [ ] Plugin system for custom tools
-- [ ] macOS/Linux support
-- [ ] Settings sync across devices
-
----
-
-Built with ❤️ using [Tauri](https://tauri.app/), [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), and [Tailwind CSS](https://tailwindcss.com/).
+Apache License 2.0 — see [LICENSE](LICENSE).
