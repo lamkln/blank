@@ -25,16 +25,16 @@ const ITEMS = [
 
 export function Faq() {
   return (
-    <section id="faq" className={styles.section}>
+    <section id="faq" className={`${styles.section} ${styles.anchorTarget}`}>
       <h2>FAQ</h2>
-      <dl className={styles.faq}>
+      <div className={styles.faq}>
         {ITEMS.map(({ q, a }) => (
-          <div key={q} className={styles.item}>
-            <dt>{q}</dt>
-            <dd>{a}</dd>
-          </div>
+          <article key={q} className={styles.item}>
+            <h3 className={styles.question}>{q}</h3>
+            <p className={styles.answer}>{a}</p>
+          </article>
         ))}
-      </dl>
+      </div>
     </section>
   );
 }

@@ -2,9 +2,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
   max-width: 720px;
   margin: 0 auto;
-  padding: 20px 24px;
+  padding: 16px 24px;
   border-bottom: 1px solid var(--hairline);
 }
 
@@ -15,11 +17,18 @@
   text-decoration: none;
   color: var(--ink);
   font-weight: 500;
+  min-width: 0;
+}
+
+.brand:hover {
+  text-decoration: none;
+  color: var(--ink);
 }
 
 .links {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 12px 20px;
   font-size: 14px;
 }
 
@@ -39,4 +48,17 @@
   line-height: 1.2;
   font-weight: 500;
   color: var(--ink);
+  display: none;
+}
+
+@media (min-width: 560px) {
+  .logo {
+    display: block;
+  }
+}
+
+@media (max-width: 520px) {
+  .nav {
+    padding: 14px 16px;
+  }
 }

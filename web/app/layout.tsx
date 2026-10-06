@@ -8,6 +8,11 @@ const mono = IBM_Plex_Mono({
   variable: "--font-mono",
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "Blank — The AI-only IDE",
   description:

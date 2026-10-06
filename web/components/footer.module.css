@@ -10,3 +10,19 @@
 .footer p {
   margin: 0;
 }
+
+.link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--body);
+}
+
+.link:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 520px) {
+  .footer {
+    padding: 24px 16px 40px;
+  }
+}

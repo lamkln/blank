@@ -4,15 +4,23 @@ import { FeatureList } from "@/components/FeatureList";
 import { HeroTerminal } from "@/components/HeroTerminal";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteNav } from "@/components/SiteNav";
+import { cloneCommand, normalizeRepoUrl } from "@/lib/github";
 import styles from "./page.module.css";
 
 const GITHUB =
   process.env.NEXT_PUBLIC_GITHUB_REPO ?? "https://github.com/lamkln/blank";
 
 export default function HomePage() {
+  const repoUrl = normalizeRepoUrl(GITHUB);
+  const installSnippet = `${cloneCommand(repoUrl)}
+cd blank
+npm install
+npm run tauri:dev    # dev
+npm run tauri:build  # release binary for your OS`;
+
   return (
     <>
-      <SiteNav githubUrl={GITHUB} />
+      <SiteNav githubUrl={repoUrl} />
       <main className={styles.main}>
         <section className={styles.hero}>
           <p className={styles.chip}>[+] desktop · macOS · Windows · Linux</p>
@@ -22,7 +30,7 @@ export default function HomePage() {
             the task; the agent proposes diffs and commands. Every change waits
             for Approve or Undo. Files stay hidden until you open the drawer.
           </p>
-          <DownloadTabs githubUrl={GITHUB} />
+          <DownloadTabs githubUrl={repoUrl} />
           <HeroTerminal />
         </section>
 
@@ -65,17 +73,13 @@ export default function HomePage() {
             Requires Node.js 18+, Rust, and platform WebView dependencies.
           </p>
           <pre className={styles.installBlock}>
-            <code>{`git clone ${GITHUB}.git
-cd blank
-npm install
-npm run tauri:dev    # dev
-npm run tauri:build  # release binary for your OS`}</code>
+            <code>{installSnippet}</code>
           </pre>
         </section>
 
         <Faq />
       </main>
-      <SiteFooter githubUrl={GITHUB} />
+      <SiteFooter githubUrl={repoUrl} />
     </>
   );
 }
